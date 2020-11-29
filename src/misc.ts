@@ -30,11 +30,13 @@ class Snake {
     public move(dir: Direction): void {
         const cs = this._cellSideSize;
 
+        //Move the rest of the snake
         for(let i = this._cellCount; i > 0; i--){
             this.cellX[i] = this.cellX[i-1];
             this.cellY[i] = this.cellY[i-1];
         }
 
+        //Move head
         if(dir === Direction.Left){
             this.cellX[0] -= cs;
         }
