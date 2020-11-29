@@ -57,6 +57,9 @@ class Snake {
         }
         return false;
     }
+    addCell() {
+        this._cellCount++;
+    }
 }
 class Apple {
     constructor(_cellSideSize, x, y) {

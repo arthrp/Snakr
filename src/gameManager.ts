@@ -40,9 +40,17 @@ class GameManager {
             return;
         }
 
+        this.checkIfAppleEaten();
         this.checkCollision();
         this._snake.move(this._direction);
         this.draw();
+    }
+
+    private checkIfAppleEaten(): void {
+        if(this._snake.cellX[0] === this._apple.x && this._snake.cellY[0] === this._apple.y){
+            this._snake.addCell();
+            this.placeNewApple();
+        }
     }
 
     private placeNewApple(): void {

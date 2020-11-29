@@ -65,6 +65,10 @@ class Snake {
 
         return false;
     }
+
+    public addCell(): void {
+        this._cellCount++;
+    }
 }
 
 class Apple {

@@ -32,9 +32,16 @@ class GameManager {
             this.printGameOverMessage();
             return;
         }
+        this.checkIfAppleEaten();
         this.checkCollision();
         this._snake.move(this._direction);
         this.draw();
+    }
+    checkIfAppleEaten() {
+        if (this._snake.cellX[0] === this._apple.x && this._snake.cellY[0] === this._apple.y) {
+            this._snake.addCell();
+            this.placeNewApple();
+        }
     }
     placeNewApple() {
         const maxX = (this._canvas.width / 10) - 1;
