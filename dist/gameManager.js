@@ -6,7 +6,7 @@ class GameManager {
         this._direction = Direction.Right;
         this._isGameOver = false;
         this._ctx = _canvas.getContext("2d");
-        this._snake = new Snake(3, this._cellSideSize);
+        this._snake = new Snake(5, this._cellSideSize);
     }
     launch() {
         this.placeNewApple();
@@ -55,6 +55,9 @@ class GameManager {
         ctx.fillText("Game over!", canv.width / 2, canv.height / 2);
     }
     checkCollision() {
+        if (this._snake.hasSelfCollided()) {
+            this._isGameOver = true;
+        }
         if (this._snake.cellX[0] > this._canvas.width ||
             this._snake.cellX[0] < 0 ||
             this._snake.cellY[0] > this._canvas.height ||

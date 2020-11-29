@@ -43,6 +43,20 @@ class Snake {
             this.cellY[0] += cs;
         }
     }
+    hasSelfCollided() {
+        const count = this._cellCount;
+        const cX = this.cellX;
+        const cY = this.cellY;
+        if (count <= 4) {
+            return false;
+        }
+        for (let i = count; i > 0; i--) {
+            if (cX[i] === cX[0] && cY[0] === cY[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 class Apple {
     constructor(_cellSideSize, x, y) {

@@ -9,7 +9,7 @@ class GameManager {
 
     constructor(private readonly _canvas: HTMLCanvasElement){
         this._ctx = _canvas.getContext("2d");
-        this._snake = new Snake(3, this._cellSideSize);
+        this._snake = new Snake(5, this._cellSideSize);
     }
 
     public launch(): void {
@@ -69,6 +69,10 @@ class GameManager {
     }
 
     private checkCollision(): void {
+        if(this._snake.hasSelfCollided()){
+            this._isGameOver = true;
+        }
+
         if(this._snake.cellX[0] > this._canvas.width || 
             this._snake.cellX[0] < 0 ||
             this._snake.cellY[0] > this._canvas.height ||
