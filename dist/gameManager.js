@@ -36,6 +36,7 @@ class GameManager {
     printGameOverMessage() {
         const ctx = this._ctx;
         const canv = this._canvas;
+        ctx.clearRect(0, 0, canv.width, canv.height);
         ctx.fillStyle = "#FFF";
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
