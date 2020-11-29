@@ -1,12 +1,15 @@
 class GameManager {
     constructor(_canvas) {
         this._canvas = _canvas;
+        this._rh = new RandomHelper();
+        this._cellSideSize = 10;
         this._direction = Direction.Right;
         this._isGameOver = false;
         this._ctx = _canvas.getContext("2d");
-        this._snake = new Snake(3);
+        this._snake = new Snake(3, this._cellSideSize);
     }
     launch() {
+        this.placeNewApple();
         setInterval(() => this.runGameCycle(), 100);
     }
     handleKeyDown(ev) {
@@ -33,6 +36,14 @@ class GameManager {
         this._snake.move(this._direction);
         this.draw();
     }
+    placeNewApple() {
+        const maxX = (this._canvas.width / 10) - 1;
+        const maxY = (this._canvas.height / 10) - 1;
+        const x = this._rh.get(maxX) * 10;
+        const y = this._rh.get(maxY) * 10;
+        console.log(x, y);
+        this._apple = new Apple(this._cellSideSize, x, y);
+    }
     printGameOverMessage() {
         const ctx = this._ctx;
         const canv = this._canvas;
@@ -54,6 +65,7 @@ class GameManager {
     draw() {
         const ctx = this._ctx;
         ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        this._apple.draw(ctx);
         this._snake.draw(ctx);
     }
 }

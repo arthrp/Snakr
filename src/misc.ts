@@ -8,9 +8,8 @@ enum Direction {
 class Snake {
     public cellX: number[] = [];
     public cellY: number[] = [];
-    private readonly _cellSideSize = 10;
 
-    constructor(private _cellCount: number){
+    constructor(private _cellCount: number, private readonly _cellSideSize: number){
         const w = this._cellSideSize;
 
         for(let i = 0; i < _cellCount; i++){
@@ -48,5 +47,21 @@ class Snake {
         else if(dir === Direction.Down){
             this.cellY[0] += cs;
         }
+    }
+}
+
+class Apple {
+    constructor(private readonly _cellSideSize: number, public readonly x: number, public readonly y: number) {}
+
+    public draw(ctx: CanvasRenderingContext2D): void {
+        ctx.fillStyle = "rgba(0,250,0,0.7)";
+        ctx.fillRect(this.x,this.y,this._cellSideSize,this._cellSideSize);
+    }
+}
+
+class RandomHelper {
+    public get(max: number): number {
+        let result = Math.floor(Math.random() * max);
+        return result;
     }
 }

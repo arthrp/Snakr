@@ -1,15 +1,19 @@
 class GameManager {
     private readonly _snake: Snake;
     private readonly _ctx: CanvasRenderingContext2D;
+    private readonly _rh = new RandomHelper();
+    private readonly _cellSideSize = 10;
     private _direction = Direction.Right;
     private _isGameOver = false;
+    private _apple: Apple;
 
     constructor(private readonly _canvas: HTMLCanvasElement){
         this._ctx = _canvas.getContext("2d");
-        this._snake = new Snake(3);
+        this._snake = new Snake(3, this._cellSideSize);
     }
 
     public launch(): void {
+        this.placeNewApple();
         setInterval(() => this.runGameCycle(), 100);
     }
 
@@ -41,6 +45,16 @@ class GameManager {
         this.draw();
     }
 
+    private placeNewApple(): void {
+        const maxX = (this._canvas.width/10)-1;
+        const maxY = (this._canvas.height/10)-1;
+        const x = this._rh.get(maxX) * 10;
+        const y = this._rh.get(maxY) * 10;
+
+        console.log(x,y);
+        this._apple = new Apple(this._cellSideSize,x,y);
+    }
+
     private printGameOverMessage(): void {
         const ctx = this._ctx;
         const canv = this._canvas;
@@ -67,6 +81,7 @@ class GameManager {
         const ctx = this._ctx;
 
         ctx.clearRect(0,0,this._canvas.width,this._canvas.height);
+        this._apple.draw(ctx);
         this._snake.draw(ctx);
     }
 }
