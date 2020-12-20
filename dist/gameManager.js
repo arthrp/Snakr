@@ -10,7 +10,7 @@ class GameManager {
     }
     launch() {
         this.placeNewApple();
-        setInterval(() => this.runGameCycle(), 100);
+        this._intervalId = setInterval(() => this.runGameCycle(), 100);
     }
     handleKeyDown(ev) {
         console.log(ev.key);
@@ -30,6 +30,7 @@ class GameManager {
     runGameCycle() {
         if (this._isGameOver) {
             this.printGameOverMessage();
+            clearInterval(this._intervalId);
             return;
         }
         this.checkIfAppleEaten();

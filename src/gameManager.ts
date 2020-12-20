@@ -6,6 +6,7 @@ class GameManager {
     private _direction = Direction.Right;
     private _isGameOver = false;
     private _apple: Apple;
+    private _intervalId: number;
 
     constructor(private readonly _canvas: HTMLCanvasElement){
         this._ctx = _canvas.getContext("2d");
@@ -14,7 +15,7 @@ class GameManager {
 
     public launch(): void {
         this.placeNewApple();
-        setInterval(() => this.runGameCycle(), 100);
+        this._intervalId = setInterval(() => this.runGameCycle(), 100);
     }
 
     public handleKeyDown(ev: KeyboardEvent): void {
@@ -37,6 +38,7 @@ class GameManager {
     private runGameCycle(): void {
         if(this._isGameOver){
             this.printGameOverMessage();
+            clearInterval(this._intervalId);
             return;
         }
 
